@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    font-family: 'Alegreya Sans', sans-serif;
+}
+
+.inv::-webkit-scrollbar{
+    width: 10px;
+}
+.inv::-webkit-scrollbar tracK{
+    background-color: orange;
+    opacity: 0.5;
+}
+.inv::-webkit-scrollbar thumb{
+    background-color: orange;
+    opacity: 0.9;
+}
+.font-capri{
+    font-family: 'Caprasimo', cursive;
+}
+
+body{
+    overflow-x: hidden;
+}
