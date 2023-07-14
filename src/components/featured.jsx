@@ -16,7 +16,7 @@ function Featuredfood() {
     }
     return (
         <>
-            <div className=" w-[90%] lg:w-[80%] py-4 flex items-center space-x-4 lg:space-x-8 overflow-x-scroll mx-auto absolute bottom-0 right-0 left-0 lg:left-[10%] 4k:left-[5%] inv overflow-y-hidden 4k:h-96">
+            <div className=" w-[90%] lg:w-[100%] py-4 flex items-center space-x-4 lg:space-x-8 overflow-x-scroll mx-auto relative bottom-0 right-0 lg:justify-center inv overflow-y-hidden 4k:h-96">
                 <ClickContect.Provider value={clicked}>
                     <FoodCard src={f1} text='Fresh and Healthy salad' cal='80 calories' time='5 mins' port='3 person'/>
                     <FoodCard src={f2} text='Spicy Beef noodles' cal='150 calories' time='18 mins' port='2 person'/>
