@@ -1,7 +1,13 @@
 import bg from '../assets/loginsignup.jpeg';
 import logo from '../assets/logormbg.png';
 import { NavLink } from 'react-router-dom';
+import {AiFillEyeInvisible, AiFillEye} from 'react-icons/ai';
+import { useState } from 'react';
 function Login() {
+    const [clicked, setclicked] = useState(false);
+    function handleclick(){
+        setclicked(!clicked)
+    }
     return ( 
         <>
             <div className="w-screen max-h-screen flex flex-col p-5 gap-20">
@@ -18,8 +24,11 @@ function Login() {
                         <label htmlFor="email" className='flex flex-col'>
                             <input type="email" name="email" placeholder='Enter your email' className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'/>
                         </label>
-                        <label htmlFor="password" className='flex flex-col gap-2'>
+                        <label htmlFor="password" className='flex flex-col gap-2 relative'>
                             <input type="password" name="password" placeholder='Enter your password' className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'/>
+                            <div className='absolute bottom-[60%] right-[10%]' onClick={()=>{handleclick()}}>
+                                {!clicked? <AiFillEyeInvisible className='text-gray-600'/> : <AiFillEye className='text-gray-600'/>}
+                            </div>
                             <NavLink to='/forgot' className='text-[#E57C23] capitalizen font-semibold mx-auto w-full lg:w-[90%]'>Forgot Password?</NavLink>
                         </label>
                     </form>
