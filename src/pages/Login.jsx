@@ -5,8 +5,17 @@ import {AiFillEyeInvisible, AiFillEye} from 'react-icons/ai';
 import { useState } from 'react';
 function Login() {
     const [clicked, setclicked] = useState(false);
-    function handleclick(){
+    function handleclick(e){
         setclicked(!clicked)
+        changetype(e, clicked)
+    }
+    function changetype(element, clicked){
+        const infield = element.target.parentElement.parentElement.previousElementSibling;
+        if(!clicked){
+            infield.type = 'text';
+        }else if(clicked){
+            infield.type = 'password';
+        }
     }
     return ( 
         <>
@@ -26,7 +35,7 @@ function Login() {
                         </label>
                         <label htmlFor="password" className='flex flex-col gap-2 relative'>
                             <input type="password" name="password" placeholder='Enter your password' className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'/>
-                            <div className='absolute bottom-[60%] right-[10%]' onClick={()=>{handleclick()}}>
+                            <div className='absolute bottom-[60%] right-[10%]' onClick={(e)=>{handleclick(e)}}>
                                 {!clicked? <AiFillEyeInvisible className='text-gray-600'/> : <AiFillEye className='text-gray-600'/>}
                             </div>
                             <NavLink to='/forgot' className='text-[#E57C23] capitalizen font-semibold mx-auto w-full lg:w-[90%]'>Forgot Password?</NavLink>

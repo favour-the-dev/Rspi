@@ -6,11 +6,21 @@ import { useState } from 'react';
 function Signup() {
     const [clicked, setclicked] = useState(false);
     const [clicked2, setclicked2] = useState(false);
-    function handleclick(){
+    function handleclick(e){
         setclicked(!clicked)
+        changetype(e, clicked)
     }
-    function handleclick2(){
+    function changetype(element, clicked){
+        const infield = element.target.parentElement.parentElement.previousElementSibling;
+        if(!clicked){
+            infield.type = 'text';
+        }else if(clicked){
+            infield.type = 'password';
+        }
+    }
+    function handleclick2(e){
         setclicked2(!clicked2)
+        changetype(e, clicked2)
     }
     return ( 
         <>  
@@ -36,13 +46,13 @@ function Signup() {
                         </label>
                         <label htmlFor="password" className='flex flex-col gap-2 relative'>
                             <input type="password" name="password" placeholder='Enter your password' className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'/>
-                            <div className='absolute bottom-[30%] right-[10%]' onClick={()=>{handleclick()}}>
+                            <div className='absolute bottom-[30%] right-[10%]'  onClick={(e)=>{handleclick(e)}}>
                                 {!clicked? <AiFillEyeInvisible className='text-gray-600'/> : <AiFillEye className='text-gray-600'/>}
                             </div>
                         </label>
                         <label htmlFor="confpassword" className='flex flex-col gap-2 relative'>
                             <input type="password" name="confpassword" placeholder='Confirm your password' className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'/>
-                            <div className='absolute bottom-[30%] right-[10%]'  onClick={()=>{handleclick2()}}>
+                            <div className='absolute bottom-[30%] right-[10%]'  onClick={(e)=>{handleclick2(e)}}>
                                 {!clicked2? <AiFillEyeInvisible className='text-gray-600'/> : <AiFillEye className='text-gray-600'/>}
                             </div>
                         </label>
