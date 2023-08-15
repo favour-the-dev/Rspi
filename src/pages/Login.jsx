@@ -1,12 +1,20 @@
 import bg from '../assets/loginsignup.jpeg';
 import logo from '../assets/logormbg.png';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {AiFillEyeInvisible, AiFillEye} from 'react-icons/ai';
 import { useState } from 'react';
+import auth from '../firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 function Login() {
     const [clicked, setclicked] = useState(false);
+    const [focus, setFocus] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
     function handleclick(e){
         setclicked(!clicked)
+        console.log('clicked')
         changetype(e, clicked)
     }
     function changetype(element, clicked){
@@ -16,6 +24,21 @@ function Login() {
         }else if(clicked){
             infield.type = 'password';
         }
+        console.log('changed')
+    }
+
+    const signin = (e)=>{
+        e.preventDefault()
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredentials)=>{
+            console.log(userCredentials)
+            if(userCredentials){
+                navigate('/dash');
+            }
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
     }
     return ( 
         <>
@@ -29,21 +52,43 @@ function Login() {
                         <h3 className='uppercase font-semibold text-xl text-[#E57C23]'>Log in</h3>
                         <p className='text-sm font-extralight text-[#E57C23]'>Continue your cooking journey on Respi</p>
                     </div>
-                    <form action="/" className='flex flex-col space-y-3'>
+                    <form action="/" className='flex flex-col space-y-3' onSubmit={(e)=>{signin(e)}}>
                         <label htmlFor="email" className='flex flex-col'>
-                            <input type="email" name="email" placeholder='Enter your email' className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'/>
+                            <input 
+                            type="email" 
+                            name="email" 
+                            placeholder='Enter your email' 
+                            className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]' 
+                            value={email} 
+                            onChange={(e)=>{
+                                setEmail(e.target.value)
+                            }}/>
                         </label>
                         <label htmlFor="password" className='flex flex-col gap-2 relative'>
-                            <input type="password" name="password" placeholder='Enter your password' className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'/>
-                            <div className='absolute bottom-[60%] right-[10%]' onClick={(e)=>{handleclick(e)}}>
+                            <input 
+                            type="password" 
+                            name="password" 
+                            placeholder='Enter your password' 
+                            className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]' 
+                            value={password} 
+                            onChange={(e)=>{
+                                setPassword(e.target.value)
+                            }} 
+                            onClick={()=>{
+                                console.log('clicked field')
+                                setFocus(true)
+                            }}/>
+                            <div 
+                            className='absolute bottom-[60%] right-[10%]' 
+                            onClick={(e)=>{focus? handleclick(e):null}}>
                                 {!clicked? <AiFillEyeInvisible className='text-gray-600'/> : <AiFillEye className='text-gray-600'/>}
                             </div>
                             <NavLink to='/forgot' className='text-[#E57C23] capitalizen font-semibold mx-auto w-full lg:w-[90%]'>Forgot Password?</NavLink>
                         </label>
+                        <button type='submit' className='bg-[#E57C23] mx-auto w-full lg:w-[90%] py-2 text-white text-center rounded-full hover:bg-[#E56C23] duration-150 ease-linear'>
+                            Log in
+                        </button>
                     </form>
-                    <NavLink to='/Home' className='bg-[#E57C23] mx-auto w-full lg:w-[90%] py-2 text-white text-center rounded-full hover:bg-[#E56C23] duration-150 ease-linear'>
-                        Log in
-                    </NavLink>
                     <div className='mx-auto w-[90%] flex gap-1 justify-center'>
                         <span>Dont have an account?</span>
                         <NavLink to='/Signup' className='text-[#E57C23] font-semibold capitalize'>Sign up</NavLink>

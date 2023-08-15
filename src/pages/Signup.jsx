@@ -1,11 +1,32 @@
 import bg from '../assets/loginsignup.jpeg';
 import logo from '../assets/logormbg.png';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {AiFillEyeInvisible, AiFillEye} from 'react-icons/ai';
 import { useState } from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import auth from '../firebase';
 function Signup() {
     const [clicked, setclicked] = useState(false);
     const [clicked2, setclicked2] = useState(false);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    const signup = (e)=>{
+        e.preventDefault();
+        createUserWithEmailAndPassword(auth, email, password, firstName, lastName)
+        .then((userCredential)=>{
+            console.log(userCredential)
+            if(userCredential){
+                navigate('/Login');
+            }
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+    }
     function handleclick(e){
         setclicked(!clicked)
         changetype(e, clicked)
@@ -34,32 +55,76 @@ function Signup() {
                         <h3 className='uppercase font-semibold text-xl text-[#E57C23]'>Sign Up</h3>
                         <p className='text-sm font-extralight text-[#E57C23]'>Start your creative culinary Journey on Respi.</p>
                     </div>
-                    <form action="/" className='flex flex-col space-y-3'>
+                    <form 
+                    action="/Login" 
+                    className='flex flex-col space-y-3'
+                    onSubmit={(e)=>{signup(e)}}
+                    >
                         <label htmlFor="firstname" className='flex flex-col'>
-                            <input type="text" name="firstname" placeholder='Enter your firstname' className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'/>
+                            <input 
+                            type="text" 
+                            name="firstname" 
+                            placeholder='Enter your firstname' 
+                            className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'
+                            value={firstName}    
+                            onChange={(e)=>{
+                                setFirstName(e.target.value)
+                            }}
+                            />
                         </label>
                         <label htmlFor="lastname" className='flex flex-col'>
-                            <input type="text" name="firstname" placeholder='Enter your lastname' className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'/>
+                            <input 
+                            type="text" 
+                            name="firstname" 
+                            placeholder='Enter your lastname' 
+                            className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'
+                            value={lastName}    
+                            onChange={(e)=>{
+                                setLastName(e.target.value)
+                            }}   
+                            />
                         </label>
                         <label htmlFor="email" className='flex flex-col'>
-                            <input type="email" name="email" placeholder='Enter your email' className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'/>
+                            <input 
+                            type="email" 
+                            name="email" 
+                            placeholder='Enter your email' 
+                            className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'
+                            value={email}   
+                            onChange={(e)=>{
+                                setEmail(e.target.value)
+                            }}
+                            />
                         </label>
                         <label htmlFor="password" className='flex flex-col gap-2 relative'>
-                            <input type="password" name="password" placeholder='Enter your password' className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'/>
+                            <input 
+                            type="password" 
+                            name="password" 
+                            placeholder='Enter your password' 
+                            className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'
+                            value={password}    
+                            onChange={(e)=>{
+                                setPassword(e.target.value)
+                            }}
+                            />
                             <div className='absolute bottom-[30%] right-[10%]'  onClick={(e)=>{handleclick(e)}}>
                                 {!clicked? <AiFillEyeInvisible className='text-gray-600'/> : <AiFillEye className='text-gray-600'/>}
                             </div>
                         </label>
                         <label htmlFor="confpassword" className='flex flex-col gap-2 relative'>
-                            <input type="password" name="confpassword" placeholder='Confirm your password' className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'/>
+                            <input 
+                            type="password" 
+                            name="confpassword" 
+                            placeholder='Confirm your password' 
+                            className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'/>
                             <div className='absolute bottom-[30%] right-[10%]'  onClick={(e)=>{handleclick2(e)}}>
                                 {!clicked2? <AiFillEyeInvisible className='text-gray-600'/> : <AiFillEye className='text-gray-600'/>}
                             </div>
                         </label>
+                        <button type='submit' className='bg-[#E57C23] mx-auto w-full lg:w-[90%] py-2 text-white text-center rounded-full hover:bg-[#E56C23] duration-150 ease-linear'>
+                            Sign up
+                        </button>
                     </form>
-                    <NavLink to='/Home' className='bg-[#E57C23] mx-auto w-full lg:w-[90%] py-2 text-white text-center rounded-full hover:bg-[#E56C23] duration-150 ease-linear'>
-                        Sign up
-                    </NavLink>
                     <div className='mx-auto w-[90%] flex gap-1 justify-center'>
                         <span>Already have an account?</span>
                         <NavLink to='/Login' className='text-[#E57C23] font-semibold capitalize'>Log in</NavLink>
