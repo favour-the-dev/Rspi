@@ -1,17 +1,18 @@
 import bg from '../assets/loginsignup.jpeg';
 import logo from '../assets/logormbg.png';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import {AiFillEyeInvisible, AiFillEye} from 'react-icons/ai';
-import { useState } from 'react';
+import { useState} from 'react';
 import auth from '../firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword} from 'firebase/auth';
 function Login() {
     const [clicked, setclicked] = useState(false);
     const [focus, setFocus] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-
+    
     function handleclick(e){
         setclicked(!clicked)
         console.log('clicked')
@@ -27,18 +28,26 @@ function Login() {
         console.log('changed')
     }
 
-    const signin = (e)=>{
+    const signin = async (e)=>{
         e.preventDefault()
-        signInWithEmailAndPassword(auth, email, password)
-        .then((userCredentials)=>{
-            console.log(userCredentials)
-            if(userCredentials){
-                navigate('/dash');
-            }
-        })
-        .catch((error)=>{
-            console.log(error)
-        })
+        if(email == ''){
+            toast.error('Email can not be empty')
+        }else if (password == ''){
+            toast.error('Password can not be empty');
+        }else{
+            await signInWithEmailAndPassword(auth, email, password)
+            .then((userCredentials)=>{
+                if(userCredentials){
+                    toast.success('log in successful')
+                    navigate('/dash');
+                }else{
+                    toast.error('Incorrect Email or Password')
+                }
+            })
+            .catch((error)=>{
+                toast.error(error.message)
+            })
+        }
     }
     return ( 
         <>
@@ -83,7 +92,7 @@ function Login() {
                             onClick={(e)=>{focus? handleclick(e):null}}>
                                 {!clicked? <AiFillEyeInvisible className='text-gray-600'/> : <AiFillEye className='text-gray-600'/>}
                             </div>
-                            <NavLink to='/forgot' className='text-[#E57C23] capitalizen font-semibold mx-auto w-full lg:w-[90%]'>Forgot Password?</NavLink>
+                            <NavLink to='/Forgot' className='text-[#E57C23] capitalizen font-semibold mx-auto w-full lg:w-[90%]'>Forgot Password?</NavLink>
                         </label>
                         <button type='submit' className='bg-[#E57C23] mx-auto w-full lg:w-[90%] py-2 text-white text-center rounded-full hover:bg-[#E56C23] duration-150 ease-linear'>
                             Log in

@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import {AiFillEyeInvisible, AiFillEye} from 'react-icons/ai';
 import { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { toast } from 'react-toastify';
 import auth from '../firebase';
 function Signup() {
     const [clicked, setclicked] = useState(false);
@@ -12,20 +13,28 @@ function Signup() {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confpass, setConfPass] = useState('');
     const navigate = useNavigate();
 
-    const signup = (e)=>{
+    const signup = async (e)=>{
         e.preventDefault();
-        createUserWithEmailAndPassword(auth, email, password, firstName, lastName)
-        .then((userCredential)=>{
-            console.log(userCredential)
-            if(userCredential){
-                navigate('/Login');
-            }
-        })
-        .catch((error)=>{
-            console.log(error)
-        })
+        if(firstName.trim() || lastName.trim() || email.trim()|| password.trim() || confpass.trim() === ''){
+            toast.error('Input all fields correctly');
+        }else if(password.trim() !== confpass.trim()){
+            toast.error('password must be the same')
+        }else{
+            await createUserWithEmailAndPassword(auth, email, password, firstName, lastName)
+            .then((userCredential)=>{
+                console.log(userCredential)
+                if(userCredential){
+                    toast.success('signup completed successfully')
+                    navigate('/Login');
+                }
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+        }
     }
     function handleclick(e){
         setclicked(!clicked)
@@ -116,7 +125,12 @@ function Signup() {
                             type="password" 
                             name="confpassword" 
                             placeholder='Confirm your password' 
-                            className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'/>
+                            className='border-gray-200 border-2 focus:outline-none p-2 rounded-md mx-auto w-full lg:w-[90%]'
+                            value={confpass}
+                            onChange={(e)=>{
+                                setConfPass(e.target.value);
+                            }}
+                            />
                             <div className='absolute bottom-[30%] right-[10%]'  onClick={(e)=>{handleclick2(e)}}>
                                 {!clicked2? <AiFillEyeInvisible className='text-gray-600'/> : <AiFillEye className='text-gray-600'/>}
                             </div>
