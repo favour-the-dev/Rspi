@@ -3,6 +3,9 @@ import logo from '../assets/respi logo.jpg';
 import { useState, useEffect } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { NavLink, useNavigate } from "react-router-dom";
+import {AiFillHome, AiOutlineSearch, AiOutlineSchedule, AiFillSave} from 'react-icons/ai';
+import { Routes, Route } from "react-router-dom";
+import DashHome from "./dashcomp/Dashhome";
 function Dashboard() {
     const [user, setUser] = useState({});
     const naviagte = useNavigate()
@@ -34,17 +37,19 @@ function Dashboard() {
                     <div className="bg-gray-300 w-10 h-10 rounded-full"></div>
                     <div className="flex flex-col font-bold">Hello, <div className="font-semibold">{user.email}</div></div>
                   </div>
-                  <div className="flex flex-col mt-4">
-                    <NavLink className='p-2 hover:bg-white hover:text-[#E57C23] duration-150 ease-linear rounded-r-md'>Home</NavLink>
-                    <NavLink className='p-2 hover:bg-white hover:text-[#E57C23] duration-150 ease-linear rounded-r-md'>Search Recipe</NavLink>
-                    <NavLink className='p-2 hover:bg-white hover:text-[#E57C23] duration-150 ease-linear rounded-r-md'>Meal Planner</NavLink>
-                    <NavLink className='p-2 hover:bg-white hover:text-[#E57C23] duration-150 ease-linear rounded-r-md'>Saved Recipe</NavLink>
+                  <div className="flex flex-col mt-8">
+                    <NavLink className='p-2 hover:bg-white hover:text-[#E57C23] duration-150 ease-linear rounded-r-md flex gap-3 uppercase' to='/dashhome'><AiFillHome className="text-xl"/> <p>Home</p></NavLink>
+                    <NavLink className='p-2 hover:bg-white hover:text-[#E57C23] duration-150 ease-linear rounded-r-md flex gap-3 uppercase'><AiOutlineSearch className="text-xl"/> <p>Search Recipe</p></NavLink>
+                    <NavLink className='p-2 hover:bg-white hover:text-[#E57C23] duration-150 ease-linear rounded-r-md flex gap-3 uppercase'><AiOutlineSchedule className="text-xl"/> <p>Meal Planner</p></NavLink>
+                    <NavLink className='p-2 hover:bg-white hover:text-[#E57C23] duration-150 ease-linear rounded-r-md flex gap-3 uppercase'><AiFillSave className='text-xl'/> <p>Saved Recipe</p></NavLink>
                   </div>
-                  <div className="absolute bottom-0 left-0 ">
-                      <button className="p-2 uppercase font-bold  bg-white text-[#E57c23] rounded-r-md" onClick={signout}>Signout</button>
+                  <div className="absolute bottom-2 left-2">
+                      <button className="p-2 uppercase font-bold  bg-white text-[#E57c23] rounded-md" onClick={signout}>Signout</button>
                   </div>
               </div>
-                
+              <div>
+                 
+              </div>
             </div>
         </>
      );
