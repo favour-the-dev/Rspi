@@ -1,9 +1,9 @@
-function DashHome() {
+function Dashhome() {
     return ( 
         <>
-            <div>Hello world</div>
+            <div className="w-full h-full">Home</div>
         </>
      );
 }
 
-export default DashHome;
+export default Dashhome;
