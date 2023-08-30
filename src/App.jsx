@@ -6,10 +6,10 @@ import Forgot from "./pages/Forgotpassword";
 import { Contextprovider } from "./components/context";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Dashhome from "./pages/Dashcomp/Dashhome";
-import Dashsearch from "./pages/Dashcomp/DashSearch";
-import Dashmeal from "./pages/Dashcomp/Dashmeal";
-import DashSaved from "./pages/Dashcomp/DashSaved";
+import Dashhome from "./pages/Dashhome";
+import Dashsearch from "./pages/DashSearch";
+import Dashmeal from "./pages/Dashmeal";
+import DashSaved from "./pages/DashSaved";
 import Dashboard from "./pages/Dashboard";
 
 function App() {
