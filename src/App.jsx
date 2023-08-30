@@ -1,7 +1,6 @@
 import { Routes, Route} from "react-router-dom";
 import Home from './pages/Home';
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
 import Signup from "./pages/Signup";
 import Forgot from "./pages/Forgotpassword";
 import { Contextprovider } from "./components/context";
@@ -11,6 +10,7 @@ import Dashhome from "./pages/Dashcomp/Dashhome";
 import Dashsearch from "./pages/Dashcomp/DashSearch";
 import Dashmeal from "./pages/Dashcomp/Dashmeal";
 import DashSaved from "./pages/Dashcomp/DashSaved";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -33,8 +33,9 @@ function App() {
           <Route path='/' element={<Home/>}/>
           <Route path='/Login' element={<Login/>}></Route>
           <Route path="/Signup" element={<Signup/>}></Route>
-          <Route path ="/dash" element={<Dashboard />}>
+          <Route path ="/dash" element={<Dashboard/>}>
             <Route index element={<Dashhome/>}/>
+            <Route path="home" element={<Dashhome/>}/>
             <Route path='search' element={<Dashsearch/>}/>
             <Route path='meal' element={<Dashmeal/>}/>
             <Route path='save' element={<DashSaved/>}/>
