@@ -8,6 +8,7 @@ const authcontext = createContext({
 
 export function Contextprovider({children}) {
     const [loading, setLoading] = useState(false);
+    const [clicked, setClicked] = useState(false);
 
     const resetPassword = (email)=>{
         setLoading(true);
@@ -17,7 +18,9 @@ export function Contextprovider({children}) {
             <authcontext.Provider value={{
              loading,
              setLoading, 
-             resetPassword
+             resetPassword,
+             clicked,
+             setClicked
              }}>
                 {children}
             </authcontext.Provider>

@@ -39,7 +39,7 @@ function Login() {
             .then((userCredentials)=>{
                 if(userCredentials){
                     toast.success('log in successful')
-                    navigate('/dash');
+                    navigate('/dash/home');
                 }else{
                     toast.error('Incorrect Email or Password')
                 }
