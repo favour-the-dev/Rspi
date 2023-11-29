@@ -2,10 +2,11 @@ import bg from '../assets/loginsignup.jpeg';
 import logo from '../assets/logormbg.png';
 import { NavLink, useNavigate } from 'react-router-dom';
 import {AiFillEyeInvisible, AiFillEye} from 'react-icons/ai';
-import { useState } from 'react';
+import { useState} from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { toast } from 'react-toastify';
 import auth from '../firebase';
+
 function Signup() {
     const [clicked, setclicked] = useState(false);
     const [clicked2, setclicked2] = useState(false);
@@ -18,16 +19,16 @@ function Signup() {
 
     const signup = async (e)=>{
         e.preventDefault();
-        if(firstName.trim() || lastName.trim() || email.trim()|| password.trim() || confpass.trim() === ''){
+        if(firstName.trim() && lastName.trim() && email.trim() && password.trim() && confpass.trim() === ''){
             toast.error('Input all fields correctly');
         }else if(password.trim() !== confpass.trim()){
-            toast.error('password must be the same')
+            toast.error('Password must be the same')
         }else{
-            await createUserWithEmailAndPassword(auth, email, password, firstName, lastName)
+            await createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential)=>{
                 console.log(userCredential)
                 if(userCredential){
-                    toast.success('signup completed successfully')
+                    toast.success('Signup Completed Successfully')
                     navigate('/Login');
                 }
             })

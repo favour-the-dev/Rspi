@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 function Dashboard() {
     return ( 
         <>
-            <div className="flex w-full h-full">
+            <div className="flex w-full h-[100dvh] overflow-hidden">
                 <Sidebar/>
                 <Outlet/>
             </div>

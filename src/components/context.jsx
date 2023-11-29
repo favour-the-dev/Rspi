@@ -20,7 +20,7 @@ export function Contextprovider({children}) {
              setLoading, 
              resetPassword,
              clicked,
-             setClicked
+             setClicked,
              }}>
                 {children}
             </authcontext.Provider>
