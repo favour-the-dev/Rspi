@@ -27,7 +27,7 @@ function Sidebar() {
     }
     return ( 
         <>
-            <aside className={`absolute md:static w-[100%] md:w-[30%] lg:w-[25%] xl:w-[20%] md:rounded-r-2xl bg-[#E57C23] text-white h-[100vh] flex p-3 duration-150 ease-linear ${clicked ? 'left-0' : 'left-[-100%]'}`}>
+            <aside className={`absolute md:static w-[100%] md:w-[30%] lg:w-[25%] xl:w-[20%] md:rounded-r-2xl bg-[#E57C23] text-white h-[100vh] flex p-3 duration-150 ease-linear ${clicked ? 'left-0' : 'left-[-100%]'} z-20`}>
               <div className="flex flex-col relative gap-4 w-[100%] md:w-fit">
                   <div className="w-[95%] md:w-[50%] mx-auto md:text-center flex items-center justify-between  md:flex-col">
                     <div className="flex items-center md:flex md:flex-col">
