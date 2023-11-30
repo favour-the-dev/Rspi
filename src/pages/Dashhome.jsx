@@ -82,8 +82,8 @@ function Dashhome() {
                                         <div className="swiper-pagination text-[#E48F45]"></div>
                                         
                                         {/* <!-- If we need navigation buttons --> */}
-                                        <div className="swiper-button-prev text-[#E48F45] font-bold text-2xl z-10"></div>
-                                        <div className="swiper-button-next text-[#E48F45] font-bold text-2xl z-10"></div>
+                                        <div className="swiper-button-prev text-[#E48F45] font-bold text-2xl"></div>
+                                        <div className="swiper-button-next text-[#E48F45] font-bold text-2xl"></div>
 
                                         {/* <!-- If we need scrollbar --> */}
                                 </div>  
