@@ -2,6 +2,8 @@ import { useEffect, useState} from "react";
 import Dashnav from "../components/Dashcomp/Dashnav";
 import Dashcard from "../components/Dashcomp/dashcard";
 import categories from "../categories";
+import Swiper from 'swiper/bundle';
+import 'swiper/css/bundle';
 // import axios from "axios";
 // import { fetchApi } from "../components/fetch";
 import { Oval } from "react-loader-spinner";
@@ -9,6 +11,28 @@ function Dashhome() {
     const date = new Date().toLocaleDateString();
     const emparr = categories;
     const [loading, setLoading] = useState(true);
+    const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+      
+        // If we need pagination
+        pagination: {
+          el: '.swiper-pagination',
+        },
+      
+        // Navigation arrows
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      
+        // autoplay
+        autoplay: {
+            delay: 5000,
+          },
+      });
+      console.log(swiper)
     useEffect(()=>{
         setTimeout(()=>{
             setLoading(false)
@@ -25,7 +49,7 @@ function Dashhome() {
                     </div>
                     <div className="mt-8 flex flex-col">
                         {/* search bar */}
-                        <h2 className="font-bold text-lg md:text-3xl text-[#F5CCA0]">Featured Categories</h2>
+                        <h2 className="font-bold text-lg md:text-3xl text-[#F5CCA0] mb-4">Featured Categories</h2>
                         {loading ? 
                                 <Oval
                                     height={80}
@@ -40,19 +64,29 @@ function Dashhome() {
                                     strokeWidthSecondary={2}
                                 />
                                 :
-                                <div className="flex flex-wrap gap-2 items-center mt-4">
-                                    {emparr.map((arr, index)=>{
-                                        return (
-                                            <Dashcard
-                                                displayName={arr.displayName}
-                                                imageUrl={arr.imageUrl}
-                                                key={index}
-                                            />
-                                        );
-                                    }
-                                    
-                                    )}
-                                </div>
+                                <div className="swiper">
+                                        <div className="swiper-wrapper w-full h-full">
+                                            {emparr.map((arr, index)=>{
+                                            return (
+                                                <Dashcard
+                                                    displayName={arr.displayName}
+                                                    imageUrl={arr.imageUrl}
+                                                    swiperclass='swiper-slide'
+                                                    key={index}
+                                                />
+                                                );
+                                            }
+                                            )}
+                                        </div>
+                                        {/* <!-- If we need pagination --> */}
+                                        <div className="swiper-pagination text-[#E48F45]"></div>
+                                        
+                                        {/* <!-- If we need navigation buttons --> */}
+                                        <div className="swiper-button-prev text-[#E48F45] font-bold text-2xl z-10"></div>
+                                        <div className="swiper-button-next text-[#E48F45] font-bold text-2xl z-10"></div>
+
+                                        {/* <!-- If we need scrollbar --> */}
+                                </div>  
                         }
                     </div>
                 </div>
@@ -64,6 +98,7 @@ function Dashhome() {
 export default Dashhome;
 
 
+    // <div className="flex flex-row justify-center p-2 space-x-10 items-center mt-4 overflow-y-hidden">
    // useEffect(()=>{
     //     fetchApi(url)
     //     .then((data)=>{

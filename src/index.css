@@ -20,6 +20,17 @@
 .font-capri{
     font-family: 'Caprasimo', cursive;
 }
+.swiper {
+    width: 800px;
+    height: 500px;
+    overflow-y: hidden;
+}
+@media screen and (max-width:960px){
+    .swiper {
+        width: 400px;
+        height: 300px;
+    }
+}
 
 body{
     overflow-x: hidden;
